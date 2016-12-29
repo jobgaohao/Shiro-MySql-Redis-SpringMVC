@@ -3,7 +3,7 @@ so.init(function(){
 	//初始化全选。
 	so.checkBoxInit('#checkAll','[check=box]');
 	//全选
-	so.id('deleteAll').on('click',function(){
+	so.id('deleteAll').on("click",function(){
 		var checkeds = $('[check=box]:checked');
 		if(!checkeds.length){
 			return layer.msg('请选择要删除的选项。',so.default),!0;

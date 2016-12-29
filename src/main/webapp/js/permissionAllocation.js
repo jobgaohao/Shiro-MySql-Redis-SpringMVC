@@ -5,7 +5,7 @@ so.init(function(){
 	
 	
 	//清空角色权限
-	so.id('deleteAll').on('click',function(){
+	so.id('deleteAll').on("click",function(){
 		var checkeds = $('[check=box]:checked');
 		if(!checkeds.length){
 			return layer.msg('请选择要清除的角色。',so.default),!0;
