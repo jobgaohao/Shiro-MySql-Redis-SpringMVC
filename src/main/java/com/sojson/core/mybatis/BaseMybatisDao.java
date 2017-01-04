@@ -187,24 +187,13 @@ public class BaseMybatisDao<T> extends SqlSessionDaoSupport {
 			countSql = c.getMappedStatement(countId).getBoundSql(params);
 			countCode = countSql.getSql();
 		}
+		Connection conn = this.getSqlSession().getConnection();
+		PreparedStatement ps = null;
 		try {
-			Connection conn = this.getSqlSession().getConnection();
-
 			List resultList = this.getSqlSession().selectList(sqlId, params); 
-
 			page.setList(resultList);
-			
-			/**
-			 * 处理Count
-			 */
-			PreparedStatement ps = getPreparedStatement4Count(countCode, countSql
-					.getParameterMappings(), params, conn);
-			ps.execute();
-			ResultSet set = ps.getResultSet();
-
-			while (set.next()) {
-				page.setTotalCount(set.getInt(1));
-			}
+			long count = this.getSqlSession().selectOne(countId, params);
+			page.setTotalCount((int)count);
 		} catch (Exception e) {
 			LoggerUtils.error(SELF, "jdbc.error.code.findByPageBySqlId",e);
 		}

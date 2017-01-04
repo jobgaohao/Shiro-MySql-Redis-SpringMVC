@@ -3,7 +3,7 @@ so.init(function(){
 	so.checkBoxInit('#checkAll','[check=box]');
 	
 	//全选
-	so.id('deleteAll').on("click",function(){
+	so.id('deleteAll').on("CLICK",function(){
 		var checkeds = $('[check=box]:checked');
 		if(!checkeds.length){
 			return layer.msg('请选择要清除的用户。',so.default),!0;
