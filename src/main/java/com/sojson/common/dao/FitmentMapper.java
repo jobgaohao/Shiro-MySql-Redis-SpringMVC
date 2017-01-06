@@ -2,6 +2,7 @@ package com.sojson.common.dao;
 
 import com.sojson.common.model.Fitment;
 import com.sojson.common.model.UPermission;
+import com.sojson.fitments.bo.FitmentBo;
 
 public interface FitmentMapper {
 	
@@ -18,4 +19,18 @@ public interface FitmentMapper {
 	 * @return
 	 */
 	int insertSelective(Fitment fitment);
+	
+	/**
+	 * 修改装修日记
+	 * @param fitment
+	 * @return
+	 */
+	int modifyFitment(Fitment fitment);
+    
+	/**
+	 * 根据PKID获取单个装修日记
+	 * @param id
+	 * @return
+	 */
+	Fitment getOneFitmentByPkid(FitmentBo fitmentBo);
 }

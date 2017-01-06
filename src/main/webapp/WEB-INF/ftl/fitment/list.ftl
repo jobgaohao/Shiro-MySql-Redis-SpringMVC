@@ -8,11 +8,13 @@
 		<link   rel="shortcut icon" href="${basePath}/img/favicon.ico" />
 		<link href="${basePath}/js/common/bootstrap/3.3.5/css/bootstrap.min.css?${_v}" rel="stylesheet"/>
 		<link href="${basePath}/css/common/base.css?${_v}" rel="stylesheet"/>
+		<link href="${basePath}/js/common/bootstrap-star-rating-master/css/star-rating.css" media="all" rel="stylesheet" type="text/css" />
 		<script  src="${basePath}/js/common/jquery/jquery1.8.3.min.js"></script>
 		<script  src="${basePath}/js/common/layer/layer.js"></script>
 		<script  src="${basePath}/js/common/bootstrap/3.3.5/js/bootstrap.min.js"></script>		
 		<script  src="${basePath}/js/shiro.demo.js"></script>
-		<script  src="${basePath}/js/fitmentList.js?${_v}"></script>
+		<script  src="${basePath}/js/fitmentList.js?${_v}"></script>		
+		<script  src="${basePath}/js/common/bootstrap-star-rating-master/js/star-rating.js"></script>
 	</head>
 	<body data-target="#one" data-spy="scroll">
 		<@_top.top 4/>
@@ -51,14 +53,12 @@
 									<td><input value="${it.id}" check='box' type="checkbox" /></td>
 									<td>${it.title?default('未设置')}</td>
 									<td>${it.tag?default('未设置')}</td>
-									<td>${it.url?default('未设置')}</td>
+									<td><a href='${it.url?default('未设置')}' target="_blank">点我</a></td>
 									<td>${it.star}</td>
-									<td>${it.addTime?string('yyyy-MM-dd HH:mm')}</td>
+									<td>${it.addedTime?string('yyyy-MM-dd HH:mm')}</td>
 									<td>
-										<a href="">
-											编辑
-										</a>
-										<a href="javascript:_delete(${it.id});">删除</a>
+										<a href="javascript:getOneFitment(${it.id});">编辑</a>
+										<a href="javascript:deleteOne(${it.id});">删除</a>
 									</td>
 								</tr>
 							</#list>
@@ -85,39 +85,52 @@
 			    <div class="modal-content">
 			      <div class="modal-header">
 			        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-			        <h4 class="modal-title" id="addPermissionLabel">添加装修日记</h4>
+			        <h4 class="modal-title" id="addPermissionLabel">装修日记</h4>
 			      </div>
 			      <div class="modal-body">
 			        <form id="boxRoleForm">
 			          <div class="form-group">
 			            <label for="recipient-name" class="control-label">标题名称:</label>
-			            <input type="text" class="form-control" name="name" id="name" placeholder="请输入权限名称"/>
+			            <input type="text" class="form-control" name="textTitle" id="textTitle" placeholder="请输入标题"/>
 			          </div>
 			          <div class="form-group">
 			            <label for="recipient-name" class="control-label">URL地址:</label>
-			            <input type="text" class="form-control" id="url" name="url"  placeholder="请输入权限URL地址">
+			            <input type="text" class="form-control" id="textUrl" name="textUrl"  placeholder="请输入URL">
 			          </div>
 			          <div class="form-group">
 			            <label for="recipient-name" class="control-label">标签:</label>
-			            <input type="text" class="form-control" id="url" name="url"  placeholder="请输入权限URL地址">
+			            <input type="text" class="form-control" id="textTag" name="textTag"  placeholder="请输入标签">
 			          </div>
 			          <div class="form-group">
 			            <label for="recipient-name" class="control-label">风格:</label>
-			            <input type="text" class="form-control" id="url" name="url"  placeholder="请输入权限URL地址">
+			            <select class="form-control" id="textStyle" name="textStyle"  placeholder="请输入风格">
+			              <option value ="1">现代简约</option>
+						  <option value ="2">地中海</option>
+						  <option value ="3">乡村田园</option>
+						  <option value ="4">北欧宜家</option>
+						  <option value ="5">美式风格</option>
+						  <option value ="6">欧式风格</option>
+						  <option value ="7">混搭风格</option>
+			            </select>
+			          </div>
+			          <div class="form-group">
+			            <label for="recipient-name" class="control-label">星星:</label>
+			            <input id="inputStar" value="0.5" type="number" class="rating" min=0 max=5 step=0.5 data-size="xs" >
 			          </div>
 			          <div class="form-group">
 			            <label for="recipient-name" class="control-label">备注:</label>
-			            <input type="text" class="form-control" id="url" name="url"  placeholder="请输入权限URL地址">
+			            <input type="text" class="form-control" id="textRemark" name="textRemark"  placeholder="请输入备注">
 			          </div>
 			          <div class="form-group">
 			            <label for="recipient-name" class="control-label">内容:</label>
-			            <input type="text" class="form-control" id="url" name="url"  placeholder="请输入权限URL地址">
+			            <input type="text" class="form-control" id="textContent" name="textContent"  placeholder="请输入内容">
 			          </div>
+			          <input type="hidden" id="hiFitmentPKID" >
 			        </form>
 			      </div>
 			      <div class="modal-footer">
 			        <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
-			        <button type="button" onclick="addPermission();" class="btn btn-primary">新增</button>
+			        <button type="button" id="btnAddFitment" class="btn btn-primary">保存</button>
 			      </div>
 			    </div>
 			  </div>

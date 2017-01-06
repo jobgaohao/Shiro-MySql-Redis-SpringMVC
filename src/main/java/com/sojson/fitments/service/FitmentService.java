@@ -31,4 +31,18 @@ public interface FitmentService {
 	 * @return
 	 */
 	Fitment insertSelective(Fitment record);
+	
+	/**
+	 * 根据PKID获取单个装修日记
+	 * @param pkid
+	 * @return
+	 */
+	Fitment getOneByPkid(Long pkid);
+	
+	/**
+	 * 修改装修日记
+	 * @param fitment
+	 * @return
+	 */
+	Map<String,Object> modifyFitment(Fitment fitment);
 }

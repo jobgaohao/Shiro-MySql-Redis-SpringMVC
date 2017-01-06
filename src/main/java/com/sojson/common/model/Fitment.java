@@ -20,16 +20,18 @@ public class Fitment implements Serializable {
     private String style;
     private String remark;
     private String url;
-    private Date addTime;
+    private Date addedTime;
     private int valid;
+   
     
     
-	public Long getid() {
+	public Long getId() {
 		return id;
 	}
-	public void setPkid(Long id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
+	
 	public String getTitle() {
 		return title;
 	}
@@ -72,17 +74,17 @@ public class Fitment implements Serializable {
 	public void setUrl(String url) {
 		this.url = url;
 	}
-	public Date getAddTime() {
-		return addTime;
+	public Date getAddedTime() {
+		return addedTime;
 	}
-	public void setAddTime(Date addTime) {
-		this.addTime = addTime;
+	public void setAddedTime(Date addedTime) {
+		this.addedTime = addedTime;
 	}
 	public int getValid() {
 		return valid;
 	}
 	public void setValid(int valid) {
-		this.valid = valid;
+		this.valid = valid; 
 	}
     
 	
