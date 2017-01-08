@@ -15,6 +15,12 @@
 		<script  src="${basePath}/js/shiro.demo.js"></script>
 		<script  src="${basePath}/js/fitmentList.js?${_v}"></script>		
 		<script  src="${basePath}/js/common/bootstrap-star-rating-master/js/star-rating.js"></script>
+	    <!--uEditor  -->
+		<link href="${basePath}/js/common/uEditor/themes/default/css/umeditor.css" type="text/css" rel="stylesheet">
+	    <script type="text/javascript" charset="utf-8" src="${basePath}/js/common/uEditor/umeditor.config.js"></script>
+	    <script type="text/javascript" charset="utf-8" src="${basePath}/js/common/uEditor/umeditor.min.js"></script>
+	    <script type="text/javascript" src="${basePath}/js/common/uEditor/lang/zh-cn/zh-cn.js"></script>
+	
 	</head>
 	<body data-target="#one" data-spy="scroll">
 		<@_top.top 4/>
@@ -123,7 +129,8 @@
 			          </div>
 			          <div class="form-group">
 			            <label for="recipient-name" class="control-label">内容:</label>
-			            <input type="text" class="form-control" id="textContent" name="textContent"  placeholder="请输入内容">
+			            <script type="text/plain" id="myEditor" style="width:568px;height:240px;">
+	                    </script>
 			          </div>
 			          <input type="hidden" id="hiFitmentPKID" >
 			        </form>

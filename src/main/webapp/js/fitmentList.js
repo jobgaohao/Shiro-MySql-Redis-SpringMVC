@@ -2,6 +2,9 @@ so.init(function(){
 	//初始化全选。
 	so.checkBoxInit('#checkAll','[check=box]');
 	
+	//初始化富文本编辑器
+	var um = UM.getEditor('myEditor');
+	
 	//星星控件初始化
 	$("#inputStar").rating({'showClear':false,'showCaption':true});
 	
@@ -22,6 +25,8 @@ so.init(function(){
 		$("input").attr("value","");
 		//设置星星为初始化状态
 		$("#inputStar").rating("reset");
+		//清空富文本编辑器
+		UM.getEditor('myEditor').setContent("", false);
 	});
 
 	
@@ -80,7 +85,7 @@ var doAddModifyFitment=function(){
 	var tag=$.trim($("#textTag").val());
 	var style=$.trim($("#textStyle").val());
 	var remark=$.trim($("#textRemark").val());
-	var content=$.trim($("#textContent").val());
+	var content=UM.getEditor('myEditor').getContent();
 	var star=$.trim($("#inputStar").val());
     var pkid=$.trim($("#hiFitmentPKID").val());
 	
@@ -179,7 +184,8 @@ var bindFitment=function(entity){
 	$("#textTag").val(entity.tag);
 	$("#textStyle").val(entity.style);
 	$("#textRemark").val(entity.remark);
-	$("#textContent").val(entity.content);	
+	$("#textContent").val(entity.content);
+	UM.getEditor('myEditor').setContent(entity.content, false);
 	$("#hiFitmentPKID").val(entity.id);
 	showModal();
 	//设置选中星星个数
