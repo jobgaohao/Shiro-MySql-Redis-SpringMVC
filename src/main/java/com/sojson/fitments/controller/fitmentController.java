@@ -2,7 +2,6 @@ package com.sojson.fitments.controller;
 
 import java.util.Date;
 import java.util.Map;
-import java.util.function.LongPredicate;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
@@ -14,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.sojson.common.aopLog.SystemLog;
 import com.sojson.common.controller.BaseController;
 import com.sojson.common.model.CommonEnum;
 import com.sojson.common.model.Fitment;
@@ -40,6 +40,7 @@ public class fitmentController extends BaseController {
     * @param modelMap
     * @return
     */
+   @SystemLog(value="查询装修列表")
    @RequestMapping(value="/index")
    public ModelAndView index(String findContent,ModelMap modelMap,Integer pageNo){
 	modelMap.put("findContent", findContent);
