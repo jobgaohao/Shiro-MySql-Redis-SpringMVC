@@ -40,6 +40,9 @@
 				         	<button type="submit" class="btn btn-primary">查询</button>
 				         	<button type="button" id="addFitment" class="btn btn-success">新增</button>
 				         	<button type="button" id="deleteAll" class="btn  btn-danger">删除</button>
+				         	<@auth code="hi1" >
+				         	    <button type="button" id="btn_hi" class="btn  btn-success">我是通过权限控制的</button>
+				         	</@auth>
 				         </span>    
 				        </div>
 					<hr>

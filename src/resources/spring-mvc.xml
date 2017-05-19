@@ -115,6 +115,9 @@
 			<map>
 				<entry key="xml_escape" value-ref="fmXmlEscape" />
 				<entry key="api" value-ref="api"/>
+				<entry key="auth">
+					<ref bean="authDirective" />
+				</entry>
 			</map>
 		</property>
 		<property name="defaultEncoding">
@@ -143,7 +146,9 @@
 	<bean id="fmXmlEscape" class="freemarker.template.utility.XmlEscape"/>
 	<!--===============通用视图解析器 end===============-->
 	
-	
+	<!--配置权限的自定义标签  -->
+	<bean id="authDirective" class="com.sojson.common.permission.AuthDirective"></bean>
+		
 	<!--  上传文件定义大小 -->
 	<bean id="multipartResolver"
 		class="org.springframework.web.multipart.commons.CommonsMultipartResolver"
