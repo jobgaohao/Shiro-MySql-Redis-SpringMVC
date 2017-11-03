@@ -6,8 +6,7 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.sojson.common.dao.FitmentMapper;
-import com.sojson.common.dao.UPermissionMapper;
+import com.sojson.fitments.mapper.FitmentMapper;
 import com.sojson.common.model.Fitment;
 import com.sojson.common.utils.LoggerUtils;
 import com.sojson.common.utils.StringUtils;
