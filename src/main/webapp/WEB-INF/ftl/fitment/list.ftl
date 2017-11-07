@@ -13,7 +13,7 @@
 		<script  src="${basePath}/js/common/layer/layer.js"></script>
 		<script  src="${basePath}/js/common/bootstrap/3.3.5/js/bootstrap.min.js"></script>		
 		<script  src="${basePath}/js/shiro.demo.js"></script>
-		<script  src="${basePath}/js/fitmentList.js?${_v}"></script>		
+		<script  src="${basePath}/js/fitment/fitmentList.js?${_v}"></script>		
 		<script  src="${basePath}/js/common/bootstrap-star-rating-master/js/star-rating.js"></script>
 	    <!--uEditor  -->
 		<link href="${basePath}/js/common/uEditor/themes/default/css/umeditor.css" type="text/css" rel="stylesheet">

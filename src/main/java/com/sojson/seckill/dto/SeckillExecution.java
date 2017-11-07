@@ -26,7 +26,7 @@ public class SeckillExecution {
     private SuccessKilled successKilled;
 
     //秒杀成功返回所有的信息
-    public SeckillExecution(Long seckillId,EnumSeckillState enumSeckillState,SuccessKilled SuccessKilled, SuccessKilled successKilled){        
+    public SeckillExecution(Long seckillId,EnumSeckillState enumSeckillState,SuccessKilled SuccessKilled){        
         this.seckillId=seckillId;
         this.state=enumSeckillState.getState();
         this.stateInfo=enumSeckillState.getInfo();

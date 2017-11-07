@@ -11,14 +11,31 @@
 	and number>0
     </update>
     
+    <!-- 查询列 -->
+    <sql id="base_column_list">
+    seckill_id,name,number,start_time,end_time,create_time
+    </sql>
+    
     <!-- 查询单个秒杀 -->
     <select id="queryBySeckillId" resultType="com.sojson.seckill.model.Seckill" parameterType="long">
-    SELECT * from seckill where seckill_id=#{seckillId}
+    SELECT seckill_id seckillId,
+           name,
+           number,
+           start_time startTime,
+           end_time endTime,
+           create_time createTime
+           from seckill where seckill_id=#{seckillId}
     </select>
     
     <!-- 分页查询秒杀 -->
     <select id="querySeckillList" resultType="com.sojson.seckill.model.Seckill">
-    select * from seckill ORDER BY create_time DESC
+    select seckill_id seckillId,
+           name,
+           number,
+           start_time startTime,
+           end_time endTime,
+           create_time createTime
+           from seckill ORDER BY create_time DESC
     limit #{offset},#{limit}
     </select>    
 </mapper>
