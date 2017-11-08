@@ -86,6 +86,7 @@
 			<tx:method name="del*" />
 			<tx:method name="load*" />
 			<tx:method name="init*" />
+			<tx:method name="execute*"/>
 			<tx:method name="*" read-only="true" />
 		</tx:attributes>
 	</tx:advice>

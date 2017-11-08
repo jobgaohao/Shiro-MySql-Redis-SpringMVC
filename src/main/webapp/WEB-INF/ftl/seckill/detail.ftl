@@ -12,7 +12,7 @@
 		<script src="${basePath}/js/common/layer/layer.js"></script>
 		<script src="${basePath}/js/common/bootstrap/3.3.5/js/bootstrap.min.js"></script>		
 		<script src="${basePath}/js/shiro.demo.js"></script>
-		<script src="${basePath}/js/seckill.js?${_v}"></script>		
+		<script src="${basePath}/js/seckill/seckill.js?${_v}"></script>		
 		<!--使用CDN 获取公共js http://www.bootcdn.cn/-->
 		<!--jQuery Cookie操作插件-->
 		<script src="http://cdn.bootcss.com/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
@@ -68,3 +68,14 @@
 </div>
 </body>
 </html>
+
+<script type="text/javascript">
+    $(function () {    	
+        //使用EL表达式传入参数
+        seckill.detail.init({
+        	seckillId:${seckill.seckillId},
+            startTime:${seckill.startTimeLong},//毫秒
+            endTime:${seckill.endTimeLong}//毫秒
+        });
+    })
+</script>

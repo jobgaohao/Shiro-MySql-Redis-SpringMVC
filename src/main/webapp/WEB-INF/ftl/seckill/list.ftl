@@ -12,8 +12,7 @@
 		<script  src="${basePath}/js/common/jquery/jquery1.8.3.min.js"></script>
 		<script  src="${basePath}/js/common/layer/layer.js"></script>
 		<script  src="${basePath}/js/common/bootstrap/3.3.5/js/bootstrap.min.js"></script>		
-		<script  src="${basePath}/js/shiro.demo.js"></script>
-		<script  src="${basePath}/js/seckill.js?${_v}"></script>		
+		<script  src="${basePath}/js/shiro.demo.js"></script>		
 		<script  src="${basePath}/js/common/bootstrap-star-rating-master/js/star-rating.js"></script>	    
 	
 	</head>
@@ -43,7 +42,7 @@
                         <td>${it.number}</td>
                         <td>${it.startTime?string('yyyy-MM-dd HH:mm:ss')}</td>
                         <td>${it.endTime?string('yyyy-MM-dd HH:mm:ss')}</td>
-                        <td>${it.createTIme?string('yyyy-MM-dd HH:mm:ss')}</td>              
+                        <td>${it.createTime?string('yyyy-MM-dd HH:mm:ss')}</td>              
                         <td><a class="btn btn-info" href="${basePath}/seckill/${it.seckillId}/detail.shtml" target="_blank">详情</a></td>
                     </tr>
                 </#list>

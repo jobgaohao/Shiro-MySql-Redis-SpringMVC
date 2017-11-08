@@ -18,7 +18,9 @@ public class Seckill {
     private Integer number;
     private Date startTime;
     private Date endTime;
-    private Date createTIme;
+    private Date createTime;
+    private Long startTimeLong;
+    private Long endTimeLong;
     
     
     public Long getSeckillId() {
@@ -51,11 +53,23 @@ public class Seckill {
     public void setEndTime(Date endTime) {
         this.endTime = endTime;
     }
-    public Date getCreateTIme() {
-        return createTIme;
+    public Date getCreateTime() {
+        return createTime;
     }
-    public void setCreateTIme(Date createTIme) {
-        this.createTIme = createTIme;
+    public void setCreateTime(Date createTime) {
+        this.createTime = createTime;
+    }
+    public Long getStartTimeLong() {
+        return startTimeLong;
+    }
+    public void setStartTimeLong(Long startTimeLong) {
+        this.startTimeLong = startTimeLong;
+    }
+    public Long getEndTimeLong() {
+        return endTimeLong;
+    }
+    public void setEndTimeLong(Long endTimeLong) {
+        this.endTimeLong = endTimeLong;
     }
     
     
