@@ -26,12 +26,12 @@
 	<aop:aspectj-autoproxy /> 
 	
 	<!-- 自动扫描 标签 -->
-	<context:component-scan base-package="com.sojson.*.*.tag;com.sojson.*.tag" />
+	<!-- <context:component-scan base-package="com.sojson.*.*.tag;com.sojson.*.tag" /> -->
 	<bean name="api" class="com.sojson.core.tags.APITemplateModel"></bean>
 	<bean name="springContextUtil" class="com.sojson.common.utils.SpringContextUtil" scope="singleton"></bean>
 	
 	<!-- 这个一定得有，注意了，如果其他配置也有需要这个，已经配置了，那不必了 -->
-	<mvc:annotation-driven  />
+	<!-- <mvc:annotation-driven  /> -->
 	
 	<bean class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter">  
 		<property name="messageConverters">  
