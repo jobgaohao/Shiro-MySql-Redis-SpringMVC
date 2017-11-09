@@ -1,4 +1,4 @@
-package com.sojson.seckill.seckillOpportunity.ipadeValidate;
+package com.sojson.seckill.seckillOpportunity.ipadValidate;
 
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
@@ -11,7 +11,7 @@ import com.sojson.seckill.utils.Utils;
 /**
  * 
  * <pre>
- * iPad 四分之一的概率
+ * iPad 十分之四的概率
  * </pre>
  *
  * @author hao.gao
@@ -26,8 +26,8 @@ public class IPadValidate<T> implements BaseValidate<T> {
         Assert.isTrue(t instanceof SeckillInfo,"未知的参数类型");
         SeckillInfo seckillInfo=(SeckillInfo)t;
         String seckillObject=seckillInfo.getSeckill().getName();
-        if(seckillObject.toUpperCase().indexOf("ipone")>0){
-            seckillInfo.setHasSeckillOpportunity(Utils.isInOpportunity(9));
+        if(seckillObject.toLowerCase().indexOf("ipad")>0){
+            seckillInfo.setHasSeckillOpportunity(Utils.isInOpportunity(6));
         }
         return t;
     }

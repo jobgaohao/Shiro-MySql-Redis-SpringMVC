@@ -16,6 +16,7 @@ import org.apache.shiro.realm.AuthorizingRealm;
 import org.apache.shiro.subject.PrincipalCollection;
 import org.apache.shiro.subject.SimplePrincipalCollection;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import com.sojson.common.model.UUser;
 import com.sojson.core.shiro.token.manager.TokenManager;
@@ -43,6 +44,7 @@ import com.sojson.user.service.UUserService;
  * @version 1.0,2016年6月2日 <br/>
  * 
  */
+@Component("sampleRealm")
 public class SampleRealm extends AuthorizingRealm {
 
 	@Autowired

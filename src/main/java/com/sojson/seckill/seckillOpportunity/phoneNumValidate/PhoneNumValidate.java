@@ -1,6 +1,5 @@
 package com.sojson.seckill.seckillOpportunity.phoneNumValidate;
 
-import java.util.Random;
 
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
@@ -29,7 +28,7 @@ public class PhoneNumValidate<T> implements BaseValidate<T> {
         Assert.isTrue(t instanceof SeckillInfo,"未知的参数类型");
         SeckillInfo seckillInfo=(SeckillInfo)t;
         String userPhone=seckillInfo.getUserPhone().toString();
-        if("88".equals(userPhone.substring(userPhone.length()-9))){
+        if("88".equals(userPhone.substring(9))){
             seckillInfo.setHasSeckillOpportunity(Utils.isInOpportunity(5));
         }
         return t;

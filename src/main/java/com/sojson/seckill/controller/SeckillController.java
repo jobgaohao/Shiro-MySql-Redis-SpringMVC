@@ -23,6 +23,7 @@ import com.sojson.seckill.dto.SeckillResult;
 import com.sojson.seckill.enums.EnumSeckillState;
 import com.sojson.seckill.exception.RepeatKillException;
 import com.sojson.seckill.exception.SeckillCloseException;
+import com.sojson.seckill.exception.SeckillException;
 import com.sojson.seckill.model.Seckill;
 import com.sojson.seckill.service.SeckillService;
 
@@ -149,6 +150,10 @@ public class SeckillController extends BaseController {
         }
         catch(SeckillCloseException e2){
             SeckillExecution execution=new SeckillExecution(seckillId,EnumSeckillState.END);
+            return new SeckillResult<SeckillExecution>(true,execution);
+        }
+        catch(SeckillException e3){
+            SeckillExecution execution=new SeckillExecution(seckillId,EnumSeckillState.BAD_OPPORTUNITY);
             return new SeckillResult<SeckillExecution>(true,execution);
         }
         catch (Exception e) {

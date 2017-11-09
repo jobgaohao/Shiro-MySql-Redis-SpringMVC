@@ -29,8 +29,8 @@ public class SeckillServiceImpl implements SeckillService {
 
     private Logger logger=LoggerFactory.getLogger(this.getClass());
     
-//    @Autowired
-//    public AbstractBaseValidate<SeckillInfo> abstractBaseValidate;
+    @Autowired
+    public AbstractBaseValidate<SeckillInfo> abstractBaseValidate;
     
     //加入一个混淆字符串，避免用户猜出md5值
     private final String salt="zhaogang@123";
@@ -97,10 +97,10 @@ public class SeckillServiceImpl implements SeckillService {
             SeckillInfo seckillInfo=new SeckillInfo();
             seckillInfo.setSeckill(getSeckillById(seckillId));
             seckillInfo.setUserPhone(userPhone);
-//            seckillInfo = (SeckillInfo)abstractBaseValidate.doValidate(seckillInfo);
-//            if(seckillInfo.isHasSeckillOpportunity()==false){
-//                throw new SeckillException("seckill fail,人品较差");
-//            }
+            seckillInfo = (SeckillInfo)abstractBaseValidate.doValidate(seckillInfo);
+            if(seckillInfo.isHasSeckillOpportunity()==false){
+                throw new SeckillException("seckill fail,人品较差");
+            }
             
             int insertCount=successKilledMapper.insertSuccessKilled(seckillId, userPhone);
             if(insertCount<=0){

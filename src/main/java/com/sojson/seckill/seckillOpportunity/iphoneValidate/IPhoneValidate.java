@@ -26,7 +26,7 @@ public class IPhoneValidate<T> implements BaseValidate<T> {
         Assert.isTrue(t instanceof SeckillInfo,"未知的参数类型");
         SeckillInfo seckillInfo=(SeckillInfo)t;
         String seckillObject=seckillInfo.getSeckill().getName();
-        if(seckillObject.toUpperCase().indexOf("ipone")>0){
+        if(seckillObject.toLowerCase().indexOf("iphone")>0){
             seckillInfo.setHasSeckillOpportunity(Utils.isInOpportunity(9));
         }
         return t;
