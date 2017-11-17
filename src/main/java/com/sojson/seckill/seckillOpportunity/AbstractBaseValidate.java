@@ -7,16 +7,17 @@ import org.springframework.stereotype.Component;
 @Component
 public class AbstractBaseValidate<T> {
 
+    private final boolean OPEN_VALIDATE=true;//是否打开记录验证
+    
     @Autowired
     private List<BaseValidate<T>> baseValidates;
-    
-    @Autowired
-    private ValidateBroker<T> validateBroker;
-    
+        
          
     public T doValidate(T t) throws Exception{
-        for(BaseValidate<T> baseValidate : baseValidates){
-            if (baseValidate.openValidate(true)){
+        ValidateBroker<T> validateBroker=new ValidateBroker<T>();        
+        for(BaseValidate<T> baseValidate : baseValidates){ 
+            boolean isOpenBaseValidate=baseValidate.openValidate(OPEN_VALIDATE);
+            if (isOpenBaseValidate){
                 validateBroker.putValidate(baseValidate);
             }
         }

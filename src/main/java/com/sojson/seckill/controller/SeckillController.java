@@ -161,4 +161,12 @@ public class SeckillController extends BaseController {
             return new SeckillResult<SeckillExecution>(true,execution);
         }
     }
+
+    @SystemLog("通过程序模拟大并发秒杀")
+    @RequestMapping(value="/{seckillId}/{threadCount}/execuByMachine")
+    @ResponseBody
+    public void executeByMachine(@PathVariable("seckillId") Long seckillId,@PathVariable("threadCount") Integer threadCount){
+       // seckillService.startThreadSeckill(threadCount,seckillId);  
+        seckillService.startThreadSeckillOne(threadCount,seckillId);        
+    }
 }

@@ -21,4 +21,22 @@ public  class Utils {
         }
         return false;
     }
+    
+    /**
+     * 
+     * <pre>
+     * 随机生成指定号段的手机号码
+     * </pre>
+     *
+     * @return
+     */
+    public static Long getUserPhone(String phoneBegin){       
+        StringBuilder sb=new StringBuilder();
+        sb.append(phoneBegin);
+        Random rnd=new Random();
+        for (int i = 0; i < 8; i++) {
+            sb.append(rnd.nextInt(10));
+        }
+        return Long.parseLong(sb.toString());
+    }
 }

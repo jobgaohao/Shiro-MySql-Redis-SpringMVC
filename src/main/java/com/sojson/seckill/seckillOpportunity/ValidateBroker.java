@@ -14,7 +14,6 @@ import org.springframework.stereotype.Component;
  * @author hao.gao
  * @version $Id: ValidateBroker.java, v 0.1 2017年11月8日 下午3:41:27 hao.gao Exp $
  */
-@Component
 public class ValidateBroker<T> {
 
     private Queue<BaseValidate<T>> validates=new ConcurrentLinkedDeque<BaseValidate<T>>();

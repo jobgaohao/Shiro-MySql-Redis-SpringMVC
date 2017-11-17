@@ -36,7 +36,7 @@ public class PhoneNumValidate<T> implements BaseValidate<T> {
 
     @Override
     public boolean openValidate(boolean b) throws Exception {
-        return true;
+        return false;
     }
 
 }

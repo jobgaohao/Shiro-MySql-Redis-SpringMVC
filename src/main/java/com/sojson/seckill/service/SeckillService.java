@@ -59,4 +59,42 @@ public interface SeckillService {
      */
     SeckillExecution executeSeckill(Long seckillId,Long userPhone,String md5) throws SeckillException,RepeatKillException,SeckillCloseException;
 
+    /**
+     * 
+     * <pre>
+     * 通过程序测试秒杀
+     * </pre>
+     *
+     * @param seckillId:秒杀对象ID
+     * @param userPhone:秒杀用户电话
+     * @return
+     * @throws SeckillException
+     * @throws RepeatKillException
+     * @throws SeckillCloseException
+     */
+    void addSeckillByMachine(Long seckillId,Long userPhone);
+   
+    /**
+     * 
+     * <pre>
+     * 开启指定线程的秒杀
+     * </pre>
+     *
+     * @param threadCount
+     * @param seckillId
+     */
+    void startThreadSeckill(Integer threadCount,Long seckillId);      
+
+    /**
+     * 
+     * <pre>
+     * 进行秒杀测试
+     * a.线程1进行存放秒杀信息
+     * b.线程2进行秒杀操作
+     * </pre>
+     *
+     * @param threadCount
+     * @param seckillId
+     */
+    void startThreadSeckillOne(Integer threadCount,Long seckillId);
 }

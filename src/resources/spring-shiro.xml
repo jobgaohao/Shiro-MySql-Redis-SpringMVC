@@ -85,7 +85,8 @@
 	<!-- redis 的缓存 -->
 	<bean id="jedisManager" class="com.sojson.core.shiro.cache.JedisManager">
 	    <property name="jedisPool" ref="jedisPool"/>
-	</bean>
+	</bean>	
+	
 	<!-- 静态注入，相当于调用SecurityUtils.setSecurityManager(securityManager) -->
 	<bean class="org.springframework.beans.factory.config.MethodInvokingFactoryBean">
 	    <property name="staticMethod" value="org.apache.shiro.SecurityUtils.setSecurityManager"/>

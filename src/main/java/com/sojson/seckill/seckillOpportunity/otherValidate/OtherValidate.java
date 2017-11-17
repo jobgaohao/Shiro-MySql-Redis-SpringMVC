@@ -25,11 +25,11 @@ public class OtherValidate<T> implements BaseValidate<T> {
     public T doValidate(T t) throws Exception {
         Assert.isTrue(t instanceof SeckillInfo,"未知的参数类型");
         SeckillInfo seckillInfo=(SeckillInfo)t;
-        String seckillObject=seckillInfo.getSeckill().getName();
+        String seckillObject=seckillInfo.getSeckill().getName();                        
         if(!(seckillObject.toLowerCase().indexOf("ipone")>0||
            seckillObject.toLowerCase().indexOf("ipad")>0)){
-            seckillInfo.setHasSeckillOpportunity(Utils.isInOpportunity(4));
-        }
+            seckillInfo.setHasSeckillOpportunity(true);
+        }               
         return t;
     }
 
