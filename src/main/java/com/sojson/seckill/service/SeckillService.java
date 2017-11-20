@@ -72,7 +72,7 @@ public interface SeckillService {
      * @throws RepeatKillException
      * @throws SeckillCloseException
      */
-    void addSeckillByMachine(Long seckillId,Long userPhone);
+    void addSeckillByMachine(Long seckillId,Long userPhone) throws Exception;
    
     /**
      * 
@@ -96,5 +96,5 @@ public interface SeckillService {
      * @param threadCount
      * @param seckillId
      */
-    void startThreadSeckillOne(Integer threadCount,Long seckillId);
+    void startThreadSeckillOne(Integer threadCount,Long seckillId) throws Exception;
 }

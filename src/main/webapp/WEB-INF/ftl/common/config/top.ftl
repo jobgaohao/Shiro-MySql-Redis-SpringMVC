@@ -73,7 +73,20 @@
 						</@shiro.hasPermission>
 					</ul>
 				</li>
-				</@shiro.hasAnyRoles> 	   				          
+				</@shiro.hasAnyRoles> 	
+				<#--拥有 角色888888（管理员） ||  100004（秒杀）-->
+				<@shiro.hasAnyRoles name='888888,100004'>
+				<li class="dropdown ${(index==5)?string('active','')}">
+					<a aria-expanded="false" aria-haspopup="true"  role="button" data-toggle="dropdown" class="dropdown-toggle" href="${basePath}/member/list.shtml">
+						秒杀系统<span class="caret"></span>
+					</a>
+					<ul class="dropdown-menu">
+					    <@shiro.hasPermission name="/seckill/index.shtml">
+						<li><a href="${basePath}/seckill/index.shtml">秒杀列表</a></li>
+						</@shiro.hasPermission>
+					</ul>
+				</li>
+				</@shiro.hasAnyRoles>				          
 	          </ul>
 	           <ul class="nav navbar-nav  pull-right" >
 				<li class="dropdown ${(index==10)?string('active','')}" style="color:#fff;">

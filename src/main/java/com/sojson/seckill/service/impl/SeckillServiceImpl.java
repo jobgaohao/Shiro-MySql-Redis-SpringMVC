@@ -164,38 +164,27 @@ public class SeckillServiceImpl implements SeckillService {
      */
     @Override
     @Transactional
-    public void addSeckillByMachine(Long seckillId, Long userPhone)
+    public void addSeckillByMachine(Long seckillId, Long userPhone) throws Exception
     {
-        Date nowTime=new Date();              
-        try {            
-            SeckillInfo seckillInfo=new SeckillInfo();
-            seckillInfo.setSeckill(getSeckillById(seckillId));
-            seckillInfo.setUserPhone(userPhone);
-            seckillInfo = (SeckillInfo)abstractBaseValidate.doValidate(seckillInfo);
-            if(seckillInfo.isHasSeckillOpportunity()==false){
-                throw new SeckillException("seckill fail,人品较差");
-            }
-            
+        Date nowTime=new Date();                            
+        SeckillInfo seckillInfo=new SeckillInfo();
+        seckillInfo.setSeckill(getSeckillById(seckillId));
+        seckillInfo.setUserPhone(userPhone);
+        seckillInfo = (SeckillInfo)abstractBaseValidate.doValidate(seckillInfo);
+        if(seckillInfo.isHasSeckillOpportunity()==false){
+            throw new SeckillException("seckill fail,人品较差");
+        }
+        
+        int updateCount=seckillMapper.reduceNumber(seckillId, nowTime);
+        if(updateCount<=0){
+           throw new SeckillCloseException("seckill is closed");
+        }  
+        else{
             int insertCount=successKilledMapper.insertSuccessKilled(seckillId, userPhone);
             if(insertCount<=0){
                 throw new RepeatKillException("seckill repeated");
             }
-            else{
-                int updateCount=seckillMapper.reduceNumber(seckillId, nowTime);
-                if(updateCount<=0){
-                   throw new SeckillCloseException("seckill is closed");
-                }               
-            }
-        }catch (SeckillCloseException e1)
-        {
-            logger.error(e1.getMessage(),e1);
-        }catch (RepeatKillException e2)
-        {
-            logger.error(e2.getMessage(),e2);
-        }catch (Exception e)
-        {
-            logger.error(e.getMessage(),e);
-        }
+        }                            
     }
 
     @Override
@@ -207,7 +196,11 @@ public class SeckillServiceImpl implements SeckillService {
             public void run() {
                 Long userPhone=Utils.getUserPhone(PHONE_BEGIN);
                 System.out.println("第"+num+"秒杀 "+userPhone+" begin");
-                addSeckillByMachine(seckillId,userPhone);
+                try {
+                    addSeckillByMachine(seckillId,userPhone);
+                } catch (Exception e) {
+                    logger.error("", e);
+                }
                 System.out.println("第"+num+"秒杀 "+userPhone+" end");
             }              
           }).start();
@@ -215,7 +208,7 @@ public class SeckillServiceImpl implements SeckillService {
     }
 
     @Override
-    public void startThreadSeckillOne(final Integer threadCount, final Long seckillId) {
+    public void startThreadSeckillOne(final Integer threadCount, final Long seckillId) throws Exception {
        
         final Thread a=new Thread(new Runnable() {            
             @Override
@@ -230,20 +223,20 @@ public class SeckillServiceImpl implements SeckillService {
             @Override
             public void run() {
                 try {
-                  a.join();
-                  Set<String> phoneList=null;
-                  do{
-                      phoneList=jedisManager.getKeys(PHONE_BEGIN);
-                      for (String phone : phoneList) {
-                          addSeckillByMachine(seckillId,Long.parseLong(phone));
-                          jedisManager.del(phone);
-                      }
-                      phoneList=jedisManager.getKeys(PHONE_BEGIN);
-                  }while(phoneList.size()>0);
-                } catch (InterruptedException e) {
+                      a.join();
+                      Set<String> phoneList=null;
+                      do{
+                          phoneList=jedisManager.getKeys(PHONE_BEGIN);
+                          for (String phone : phoneList) {
+                              addSeckillByMachine(seckillId,Long.parseLong(phone));
+                              jedisManager.del(phone);
+                          }
+                          phoneList=jedisManager.getKeys(PHONE_BEGIN);
+                      }while(phoneList.size()>0);
+                  }
+                catch (Exception e) {
                     logger.error("", e);
-                }
-              
+                }              
             }
         });
         

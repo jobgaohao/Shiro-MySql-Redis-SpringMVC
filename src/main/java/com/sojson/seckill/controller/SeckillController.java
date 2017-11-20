@@ -167,6 +167,11 @@ public class SeckillController extends BaseController {
     @ResponseBody
     public void executeByMachine(@PathVariable("seckillId") Long seckillId,@PathVariable("threadCount") Integer threadCount){
        // seckillService.startThreadSeckill(threadCount,seckillId);  
-        seckillService.startThreadSeckillOne(threadCount,seckillId);        
+       try {
+           seckillService.startThreadSeckillOne(threadCount,seckillId); 
+        } catch (Exception e) {
+           e.printStackTrace();
+        }
+               
     }
 }
