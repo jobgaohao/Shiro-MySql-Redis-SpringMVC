@@ -28,7 +28,6 @@ import com.sojson.seckill.model.Seckill;
 import com.sojson.seckill.model.SuccessKilled;
 import com.sojson.seckill.seckillOpportunity.AbstractBaseValidate;
 import com.sojson.seckill.service.SeckillService;
-import com.sojson.seckill.utils.RedisUtils;
 import com.sojson.seckill.utils.Utils;
 
 @Service
