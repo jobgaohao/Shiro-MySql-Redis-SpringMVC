@@ -1,16 +1,17 @@
 package com.sojson.seckill.service.impl;
 
-import java.util.ArrayList;
+
 import java.util.Date;
 import java.util.List;
+import java.util.Random;
 import java.util.Set;
+import java.util.concurrent.CyclicBarrier;
 
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.DigestUtils;
 
@@ -87,57 +88,40 @@ public class SeckillServiceImpl implements SeckillService {
      * @param userPhone
      * @param md5
      * @return
-     * @throws SeckillException
-     * @throws RepeatKillException
-     * @throws SeckillCloseException
+     * @throws Exception 
      * @see com.sojson.seckill.service.SeckillService#executeSeckill(java.lang.Long, java.lang.Long, java.lang.String)
      */
     @Override
     @Transactional
     public SeckillExecution executeSeckill(Long seckillId, Long userPhone, String md5)
-              throws SeckillException,
-              RepeatKillException,
-              SeckillCloseException {
+              throws Exception {
         Date nowTime=new Date();
         if(StringUtils.isEmpty(md5)||!md5.equals(getMD5(seckillId))){
             throw new SeckillException("seckill data rewrite");//秒杀数据被重写
         }
         
-        try {
-            
-            SeckillInfo seckillInfo=new SeckillInfo();
-            seckillInfo.setSeckill(getSeckillById(seckillId));
-            seckillInfo.setUserPhone(userPhone);
-            seckillInfo = (SeckillInfo)abstractBaseValidate.doValidate(seckillInfo);
-            if(seckillInfo.isHasSeckillOpportunity()==false){
-                throw new SeckillException("seckill fail,人品较差");
-            }
-            
-            int insertCount=successKilledMapper.insertSuccessKilled(seckillId, userPhone);
-            if(insertCount<=0){
-                throw new RepeatKillException("seckill repeated");
+                  
+        SeckillInfo seckillInfo=new SeckillInfo();
+        seckillInfo.setSeckill(getSeckillById(seckillId));
+        seckillInfo.setUserPhone(userPhone);
+        seckillInfo = (SeckillInfo)abstractBaseValidate.doValidate(seckillInfo);
+        if(seckillInfo.isHasSeckillOpportunity()==false){
+            throw new SeckillException("seckill fail,人品较差");
+        }
+        
+        int insertCount=successKilledMapper.insertSuccessKilled(seckillId, userPhone);
+        if(insertCount<=0){
+            throw new RepeatKillException("seckill repeated");
+        }
+        else{
+            int updateCount=seckillMapper.reduceNumber(seckillId, nowTime);
+            if(updateCount<=0){
+                throw new SeckillCloseException("seckill is closed");
             }
             else{
-                int updateCount=seckillMapper.reduceNumber(seckillId, nowTime);
-                if(updateCount<=0){
-                    throw new SeckillCloseException("seckill is closed");
-                }
-                else{
-                    SuccessKilled successKilled=successKilledMapper.queryByIdWithSeckill(seckillId, userPhone);
-                    return new SeckillExecution(seckillId, EnumSeckillState.SUCCESS,successKilled);
-                }
+                SuccessKilled successKilled=successKilledMapper.queryByIdWithSeckill(seckillId, userPhone);
+                return new SeckillExecution(seckillId, EnumSeckillState.SUCCESS,successKilled);
             }
-        }catch (SeckillCloseException e1)
-        {
-            throw e1;
-        }catch (RepeatKillException e2)
-        {
-            throw e2;
-        }catch (Exception e)
-        {
-            logger.error(e.getMessage(),e);
-            //所以编译期异常转化为运行期异常
-            throw new SeckillException("seckill inner error :"+e.getMessage());
         }
     }
     
@@ -184,7 +168,8 @@ public class SeckillServiceImpl implements SeckillService {
             if(insertCount<=0){
                 throw new RepeatKillException("seckill repeated");
             }
-        }                            
+        }     
+        System.out.println(userPhone+"秒杀 success");
     }
 
     @Override
@@ -208,8 +193,7 @@ public class SeckillServiceImpl implements SeckillService {
     }
 
     @Override
-    public void startThreadSeckillOne(final Integer threadCount, final Long seckillId) throws Exception {
-       
+    public void startThreadSeckillOne(final Integer threadCount, final Long seckillId) throws Exception {       
         final Thread a=new Thread(new Runnable() {            
             @Override
             public void run() {
@@ -223,7 +207,7 @@ public class SeckillServiceImpl implements SeckillService {
             @Override
             public void run() {
                 try {
-                      a.join();
+                      a.join();//b线程在a线程执行完后进行
                       Set<String> phoneList=null;
                       do{
                           phoneList=jedisManager.getKeys(PHONE_BEGIN);
@@ -244,4 +228,28 @@ public class SeckillServiceImpl implements SeckillService {
         b.start();
     }
 
+    @Override
+    public void startThreadSeckillTwo(Integer threadCount, final Long seckillId) throws Exception {
+      int runner=threadCount;
+      final CyclicBarrier cyclicBarrier=new CyclicBarrier(runner);
+      final Random random=new Random();
+      for (int i = 0; i < runner; i++) {
+        final String phone=Utils.getUserPhone(PHONE_BEGIN).toString();
+        new Thread(new Runnable() {            
+            @Override
+            public void run() {
+                try {
+                    long prepareTime=random.nextInt(10000)+100;
+                    System.out.println(phone+"is preparing for time"+prepareTime);
+                    Thread.sleep(prepareTime);
+                    cyclicBarrier.await();//线程准备好后，等待他人      
+                    System.out.println(phone+" starts running");
+                    addSeckillByMachine(seckillId,Long.parseLong(phone));
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }                
+            }
+        }).start();
+      }
+    }
 }

@@ -57,7 +57,7 @@ public interface SeckillService {
      * @throws RepeatKillException
      * @throws SeckillCloseException
      */
-    SeckillExecution executeSeckill(Long seckillId,Long userPhone,String md5) throws SeckillException,RepeatKillException,SeckillCloseException;
+    SeckillExecution executeSeckill(Long seckillId,Long userPhone,String md5) throws Exception;
 
     /**
      * 
@@ -97,4 +97,18 @@ public interface SeckillService {
      * @param seckillId
      */
     void startThreadSeckillOne(Integer threadCount,Long seckillId) throws Exception;
+
+    /**
+     * 
+     * <pre>
+     * 进行秒杀测试
+     * a.开启三个线程
+     * b.三个线程都准备好后进行秒杀     
+     * </pre>
+     *
+     * @param threadCount
+     * @param seckillId
+     * @throws Exception
+     */
+    void startThreadSeckillTwo(Integer threadCount,Long seckillId) throws Exception;
 }

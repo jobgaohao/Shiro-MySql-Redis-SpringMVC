@@ -165,10 +165,11 @@ public class SeckillController extends BaseController {
     @SystemLog("通过程序模拟大并发秒杀")
     @RequestMapping(value="/{seckillId}/{threadCount}/execuByMachine")
     @ResponseBody
-    public void executeByMachine(@PathVariable("seckillId") Long seckillId,@PathVariable("threadCount") Integer threadCount){
-       // seckillService.startThreadSeckill(threadCount,seckillId);  
+    public void executeByMachine(@PathVariable("seckillId") Long seckillId,@PathVariable("threadCount") Integer threadCount){  
        try {
-           seckillService.startThreadSeckillOne(threadCount,seckillId); 
+           //seckillService.startThreadSeckill(threadCount,seckillId); 
+           //seckillService.startThreadSeckillOne(threadCount,seckillId); 
+           seckillService.startThreadSeckillTwo(3,seckillId);
         } catch (Exception e) {
            e.printStackTrace();
         }
