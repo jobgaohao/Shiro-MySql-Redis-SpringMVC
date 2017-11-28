@@ -111,4 +111,13 @@ public interface SeckillService {
      * @throws Exception
      */
     void startThreadSeckillTwo(Integer threadCount,Long seckillId) throws Exception;
+    
+    /**
+     * 
+     * <pre>
+     * 测试 spring task by @Scheduled
+     * </pre>
+     *
+     */
+    void testScheduled();  
 }

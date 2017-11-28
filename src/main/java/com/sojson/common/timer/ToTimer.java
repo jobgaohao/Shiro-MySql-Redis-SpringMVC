@@ -20,12 +20,12 @@ public class ToTimer{
 	@Resource
 	RoleService roleService;
 	@Scheduled(cron = "0/20 * * * * ? ")
-	public void run() {
+	public void run1() {
 		/**
 		 * 调用存储过程，重新创建表，插入初始化数据。
 		 */
-		roleService.initData();
-		System.out.println(new Date().getTime());
+		//roleService.initData();
+		System.out.println("toTimer():-->"+new Date().getTime());
 	}
 
 	

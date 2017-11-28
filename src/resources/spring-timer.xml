@@ -12,7 +12,18 @@
 	http://www.springframework.org/schema/mvc 
 	http://www.springframework.org/schema/mvc/spring-mvc-4.0.xsd">
 
+    <!-- 配置任务线程池 -->
 	<task:executor id="executor" pool-size="5" />  
     <task:scheduler id="scheduler" pool-size="10" />  
+    <!-- 启用注解方式启动任务线程池 -->
     <task:annotation-driven executor="executor" scheduler="scheduler" />
+    
+    <!-- 配置作业类的java Bean --> 
+    <bean id="SeckillScheduled" class="com.sojson.seckill.service.impl.SeckillScheduledServiceImpl"/>
+    
+    <!-- 配置task-->
+    <task:scheduled-tasks>  
+        <!--任务1,方法名称：testScheduledByXML，cron为执行规则:每隔20秒执行一次  -->
+        <task:scheduled ref="SeckillScheduled" method="testScheduledByXML"  cron="0/20 * * * * ? " />  
+    </task:scheduled-tasks> 
 </beans>

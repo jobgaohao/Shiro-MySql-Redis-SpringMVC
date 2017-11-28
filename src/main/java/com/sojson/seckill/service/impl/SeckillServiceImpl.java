@@ -1,6 +1,8 @@
 package com.sojson.seckill.service.impl;
 
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 import java.util.Random;
@@ -11,6 +13,7 @@ import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.DigestUtils;
@@ -252,4 +255,17 @@ public class SeckillServiceImpl implements SeckillService {
         }).start();
       }
     }
+
+    /**
+     * 运行定时任务
+     * 每天下午2点到下午2:05期间的每1分钟触发 :"0 0-5 14 * * ?"    
+     * 
+     * @see com.sojson.seckill.service.SeckillService#testScheduled()
+     */
+    @Override
+    @Scheduled(cron = "0/20 * * * * ? ")
+    public void testScheduled() {
+        DateFormat formatter= new SimpleDateFormat("yyyy年MM月dd日 HH时mm分ss秒");       
+        System.out.println("Spring task by annotation---->"+formatter.format(new Date()));
+    }  
 }
