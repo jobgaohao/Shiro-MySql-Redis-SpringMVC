@@ -319,6 +319,14 @@
 		</dependency>
 		<!-- redis end -->
 
+        <!-- JsouP  begin -->
+		<dependency>  
+		    <groupId>org.jsoup</groupId>  
+		    <artifactId>jsoup</artifactId>  
+		    <version>1.8.1</version>  
+		</dependency> 
+		<!-- JsouP  end -->
+
 		<!-- Spring 升级4+ 依赖的JSON包 -->
 		<dependency>
 			<groupId>com.fasterxml.jackson.core</groupId>
