@@ -114,4 +114,19 @@ public class ExtractService {
 		}
 		return datas;
 	}
+	
+	/**
+	 * 抓取博客园数据
+	 * @return
+	 */
+	public List<LinkTypeData> getCnblogs(){		
+		Rule rule=new Rule(
+				"http://www.cnblogs.com",
+				new String[]{},new String[]{},
+				"div#post_list div.post_item", 
+				Rule.SELECTION, 
+				Rule.GET);
+		List<LinkTypeData> extracts=extractCnblog(rule);
+		return extracts;
+	}
 }

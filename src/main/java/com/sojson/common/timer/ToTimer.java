@@ -1,5 +1,7 @@
 package com.sojson.common.timer;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import javax.annotation.Resource;
@@ -21,11 +23,8 @@ public class ToTimer{
 	RoleService roleService;
 	@Scheduled(cron = "0/20 * * * * ? ")
 	public void run1() {
-		/**
-		 * 调用存储过程，重新创建表，插入初始化数据。
-		 */
-		//roleService.initData();
-		System.out.println("toTimer():-->"+new Date().getTime());
+		DateFormat formatter= new SimpleDateFormat("yyyy年MM月dd日 HH时mm分ss秒");		
+		System.out.println("toTimer():-->"+formatter.format(new Date()));
 	}
 
 	

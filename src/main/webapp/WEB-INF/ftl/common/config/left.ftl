@@ -103,3 +103,18 @@
 		</div>
 	</@shiro.hasAnyRoles>   
 </#macro>
+<#macro blogs index>
+	<@shiro.hasAnyRoles name='888888,100004'>  
+		<div id="one" class="col-md-2">
+			<ul data-spy="affix" class="nav nav-list nav-tabs nav-stacked bs-docs-sidenav dropdown affix" style="top: 100px; z-index: 100;">			 
+			 <@shiro.hasPermission name="/blogs/index.shtml">
+			  <li class="${(index==1)?string('active',' ')}">
+			      <a href="${basePath}/blogs/index.shtml">
+			    	 <i class="glyphicon glyphicon-chevron-right"></i>博客园列表
+			      </a>
+			  </li>
+			  </@shiro.hasPermission>			 
+			</ul>
+		</div>
+	</@shiro.hasAnyRoles>   
+</#macro>

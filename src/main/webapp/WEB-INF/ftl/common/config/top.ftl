@@ -86,7 +86,20 @@
 						</@shiro.hasPermission>
 					</ul>
 				</li>
-				</@shiro.hasAnyRoles>				          
+				</@shiro.hasAnyRoles>	
+				<#--拥有 角色888888（管理员） ||  100004（博客园爬虫）-->
+				<@shiro.hasAnyRoles name='888888,100004'>
+				<li class="dropdown ${(index==6)?string('active','')}">
+					<a aria-expanded="false" aria-haspopup="true"  role="button" data-toggle="dropdown" class="dropdown-toggle" href="${basePath}/member/list.shtml">
+						博客园爬虫<span class="caret"></span>
+					</a>
+					<ul class="dropdown-menu">
+					    <@shiro.hasPermission name="/blogs/index.shtml">
+						<li><a href="${basePath}/blogs/index.shtml">博客园列表</a></li>
+						</@shiro.hasPermission>
+					</ul>
+				</li>
+				</@shiro.hasAnyRoles>			          
 	          </ul>
 	           <ul class="nav navbar-nav  pull-right" >
 				<li class="dropdown ${(index==10)?string('active','')}" style="color:#fff;">

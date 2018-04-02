@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sojson.blog.mapper.BlogMapper" >
+
+  <!-- 查询列 -->
+  <sql id="Base_Column_List" >
+    pkid,blogtext,bloghref,blogcontent,blogsummary,remark,added_time as addedTime
+  </sql>
+  
+  <!-- 查询分页条件 -->
+  <sql id="limit_sql">
+  	   <if test="page_sql != null and page_sql != ''">
+      	${page_sql}
+      </if>
+  </sql>
+  
+  <!-- 查询where条件 -->
+  <sql id="where_all">
+  	<where>
+  	  <if test="findContent != null and findContent !='' " >
+        and (
+        LOWER(title) like CONCAT("%",#{findContent,jdbcType=VARCHAR},"%") or
+        LOWER(tag) like CONCAT("%",#{findContent,jdbcType=VARCHAR},"%")
+        )
+      </if>
+      <if test="pkid !=null and pkid !=''">
+        and id = #{pkid,jdbcType=BIGINT}
+      </if>
+       and valid=1
+    </where>
+  </sql>
+  
+  <!-- 查询所有 -->
+  <select id="findAll" resultType="com.sojson.common.model.Blogs"  >
+  	 select 
+    <include refid="Base_Column_List" />
+    from tblogs 
+    <include refid="where_all"/>
+    order by pkid desc
+    <include refid="limit_sql" />    
+  </select>
+  
+  <!-- 查询数量 -->
+  <select id="findCount" resultType="java.lang.Long" >
+ 	 select count(pkid) from  tblogs
+  	<include refid="where_all" />
+  </select>
+  
+  <!-- 查询单个 -->
+  <select id="getOneBlogsByPkid" resultType="com.sojson.common.model.Blogs"  parameterType="com.sojson.blog.bo.BlogsBo" >
+     select 
+     <include refid="Base_Column_List" />
+     from t_fitment 
+    <include refid="where_all"/>
+  </select>
+  
+  <!-- 新增 -->
+  <insert id="insertSelective" useGeneratedKeys="true" keyProperty="pkid" parameterType="com.sojson.common.model.Blogs" >
+    insert into tblogs
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="pkid != null" >
+        pkid,
+      </if>
+      <if test="blogtext != null" >
+        blogtext,
+      </if>
+      <if test="bloghref != null" >
+        bloghref,
+      </if>
+      <if test="blogcontent != null" >
+        blogcontent,
+      </if>
+      <if test="blogsummary != null" >
+        blogsummary,
+      </if>
+      <if test="remark != null" >
+        remark,
+      </if>
+      valid,
+      added_time,
+      modified_time      
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="pkid != null" >
+        #{pkid,jdbcType=BIGINT},
+      </if>
+      <if test="blogtext != null" >
+        #{blogtext,jdbcType=VARCHAR},
+      </if>
+      <if test="bloghref != null" >
+        #{bloghref,jdbcType=VARCHAR},
+      </if>
+       <if test="blogcontent != null" >
+        #{blogcontent,jdbcType=VARCHAR},
+      </if>
+       <if test="blogsummary != null" >
+        #{blogsummary,jdbcType=VARCHAR},
+      </if>
+       <if test="remark != null" >
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      1,       
+      now(),
+      now()
+    </trim>
+  </insert> 
+  
+  <!-- 删除 -->
+  <update id="deleteByPrimaryKey" parameterType="java.lang.Long">
+     update tblogs a SET a.valid=0 where a.pkid = #{pkid,jdbcType=BIGINT}
+  </update>
+  
+  <!-- 修改 -->
+  <update id="modifyBlogs" parameterType="com.sojson.common.model.Blogs"  >
+  update tblogs
+    <set >
+      <if test="blogtext != null" >
+        blogtext = #{blogtext,jdbcType=VARCHAR},
+      </if>
+      <if test="bloghref != null" >
+        bloghref = #{bloghref,jdbcType=VARCHAR},
+      </if>
+      <if test="blogcontent != null" >
+        blogcontent = #{blogcontent,jdbcType=VARCHAR},
+      </if>
+      <if test="blogsummary != null" >
+        blogsummary = #{blogsummary,jdbcType=VARCHAR},
+      </if>      
+      <if test="remark != null" >
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+      modified_time=NOW()
+    </set>
+    where pkid = #{pkid,jdbcType=BIGINT}
+  </update>
+  
+</mapper>

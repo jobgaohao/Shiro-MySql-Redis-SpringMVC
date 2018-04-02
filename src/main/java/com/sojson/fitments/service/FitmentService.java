@@ -3,7 +3,6 @@ package com.sojson.fitments.service;
 import java.util.Map;
 
 import com.sojson.common.model.Fitment;
-import com.sojson.common.model.UPermission;
 import com.sojson.core.mybatis.page.Pagination;
 
 public interface FitmentService {
