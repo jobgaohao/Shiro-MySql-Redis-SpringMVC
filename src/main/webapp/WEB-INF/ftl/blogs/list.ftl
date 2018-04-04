@@ -26,11 +26,11 @@
 					<form method="post" action="" id="formId" class="form-inline">
 						<div clss="well">
 					      <div class="form-group">
-					        <input type="text" class="form-control" style="width: 300px;" value="${findContent?default('')}" 
-					        			name="findContent" id="findContent" placeholder="输入标题/ 标签">
+					        <input type="text" class="form-control" style="width: 300px;"  name="blogtext" id="blogtext" placeholder="输入标题" value="${blogtext?default('')}">
+					        <input type="text" class="form-control" style="width: 300px;"  name="blogcontent" id="blogcontent" placeholder="输入博客内容" value="${blogcontent?default('')}">
 					      </div>
 					     <span class=""> <#--pull-right -->
-				         	<button type="submit" class="btn btn-primary">查询</button>
+				         	<button type="submit" id="searchBlogs" class="btn btn-primary">查询</button>
 				         	<button type="button" id="addBlogs" class="btn btn-success">爬取</button>
 				         	<button type="button" id="deleteAll" class="btn  btn-danger">删除</button>				         	
 				         </span>    

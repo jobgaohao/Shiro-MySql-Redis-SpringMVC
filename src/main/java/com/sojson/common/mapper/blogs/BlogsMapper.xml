@@ -17,21 +17,21 @@
   <!-- 查询where条件 -->
   <sql id="where_all">
   	<where>
-  	  <if test="findContent != null and findContent !='' " >
-        and (
-        LOWER(title) like CONCAT("%",#{findContent,jdbcType=VARCHAR},"%") or
-        LOWER(tag) like CONCAT("%",#{findContent,jdbcType=VARCHAR},"%")
-        )
+  	  valid=1
+  	  <if test="blogtext != null and blogtext !='' " >        
+        and LOWER(blogtext) like CONCAT("%",#{blogtext,jdbcType=VARCHAR},"%")        
+      </if>
+       <if test="blogcontent != null and blogcontent !='' " >        
+        and LOWER(blogcontent) like CONCAT("%",#{blogcontent,jdbcType=VARCHAR},"%")        
       </if>
       <if test="pkid !=null and pkid !=''">
         and id = #{pkid,jdbcType=BIGINT}
-      </if>
-       and valid=1
+      </if>       
     </where>
   </sql>
   
   <!-- 查询所有 -->
-  <select id="findAll" resultType="com.sojson.common.model.Blogs"  >
+  <select id="findAll" resultType="com.sojson.common.model.Blogs" parameterType="java.util.Map">
   	 select 
     <include refid="Base_Column_List" />
     from tblogs 

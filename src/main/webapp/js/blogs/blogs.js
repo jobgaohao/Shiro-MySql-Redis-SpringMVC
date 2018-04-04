@@ -18,11 +18,12 @@ so.init(function(){
 	$("#addBlogs").on("click",function(){		
 		extractBlogs();
 	});
+		
 });
 
 
 /**
- * 抓取博客园首页
+ * 抓取博客园首页  
  */
 var extractBlogs=function(){
 	var load=layer.load();
@@ -31,12 +32,21 @@ var extractBlogs=function(){
 	 	type: 'get',	 	
 	 	success: function(data){
 	 		layer.close(load);
-	 		layer.msg(data.message);	 		
+	 		layer.msg(data.message);
+	 		location.reload(); 
 	 	}
 	 });  
 }
 
-
+/**
+ * 查询博客
+ */
+var searchBlogs=function(){
+	var load=layer.load();
+	var params = {};  
+	params.blogtext=$.trim($("#blogtext").val());//博客标题
+	params.blogcontent=$.trim($("#blogcontent").val());//博客内容		
+}
 
 
 /**
