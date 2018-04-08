@@ -7,6 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
@@ -56,4 +58,34 @@ public class BlogController extends BaseController {
 		}
 		return result;
 	}
+	
+	
+	@RequestMapping("/getBlogs")
+	@ResponseBody
+	public Map<String,Object> getBlogs(Long pkid){
+		Map<String,Object> result=new HashMap<String,Object>();
+		try {
+			Blogs blogs=blogService.getOneByPkid(pkid);
+			result.put("status", 200);
+			result.put("entity", blogs);
+		} catch (Exception e) {
+			result.put("status", 500);
+			result.put("message", "error"+e.getMessage());
+		}
+		return result;
+	}
+	
+	@RequestMapping("/modifyBlogs")
+	@ResponseBody
+	public Map<String,Object> modifyBlogs(@ModelAttribute Blogs blogs){		
+		return	blogService.modifyBlogs(blogs);					
+	}
+	
+	
+	@RequestMapping("/delBlogs")
+	@ResponseBody
+	public Map<String,Object> delBlogs(String ids){
+		return blogService.deleteBlogs(ids);
+	}
+	
 }

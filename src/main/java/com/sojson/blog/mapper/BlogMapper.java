@@ -17,19 +17,19 @@ public interface BlogMapper {
      * @param record
      * @return
      */
-    int insertSelective(Blogs fitment);
+    int insertSelective(Blogs blogs);
     
     /**
      * 修改博客
      * @param 
      * @return
      */
-    int modifyBlogs(Blogs fitment);
+    int modifyBlogs(Blogs blogs);
     
     /**
      * 根据PKID获取单个博客
      * @param id
      * @return
      */
-    Blogs getOneBlogByPkid(BlogsBo blogsBo);
+    Blogs getOneBlogsByPkid(BlogsBo blogsBo);
 }

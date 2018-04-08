@@ -68,7 +68,8 @@
 	</bean>
 	<!-- 注册Mapper Interface -->
 	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
-		<property name="basePackage" value="com.sojson.common.dao,
+		<property name="basePackage" value="
+		com.sojson.common.dao,
 		com.sojson.fitments.mapper,
 		com.sojson.seckill.mapper,
 		com.sojson.blog.mapper" />
@@ -91,6 +92,7 @@
 			<tx:method name="load*" />
 			<tx:method name="init*" />
 			<tx:method name="execute*"/>
+			<tx:method name="modify*" read-only="false" rollback-for="Exception" propagation="REQUIRED"/>
 			<tx:method name="*" read-only="true" />
 		</tx:attributes>
 	</tx:advice>

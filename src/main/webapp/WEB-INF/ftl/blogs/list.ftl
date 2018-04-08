@@ -39,9 +39,7 @@
 					<table class="table table-bordered">
 						<tr>
 							<th><input type="checkbox" id="checkAll"/></th>
-							<th>标题</th>
-							<th>内容</th>
-							<th>摘要</th>
+							<th>标题</th>							
 							<th>备注</th>
 							<th>创建时间</th>							
 							<th>操作</th>
@@ -51,8 +49,6 @@
 								<tr>
 									<td><input value="${it.pkid}" check='box' type="checkbox" /></td>
 									<td><a href='${it.bloghref}' target="_blank">${it.blogtext?default('未设置')}</a></td>
-									<td>${it.blogcontent?default('未设置')}</td>
-									<td>${it.blogsummary?default('未设置')}</td>
 									<td>${it.remark?default('')}</td>
 									<td>${it.addedTime?string('yyyy-MM-dd HH:mm')}</td>
 									<td>
@@ -77,8 +73,46 @@
 			</div>
 		</div>
 		
-		
-		
-		
+		   <#--弹框-->
+			<div class="modal fade" id="addBlogsDiv" tabindex="-1" role="dialog" aria-labelledby="addPermissionLabel">
+			  <div class="modal-dialog" role="document">
+			    <div class="modal-content">
+			      <div class="modal-header">
+			        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+			        <h4 class="modal-title" id="addPermissionLabel">博客园</h4>
+			      </div>
+			      <div class="modal-body">
+			        <form id="boxRoleForm">
+			          <div class="form-group">
+			            <label for="recipient-name" class="control-label">博客标题:</label>
+			            <input type="text" class="form-control" name="textTitle" id="textTitle" placeholder="请输入博客标题"/>
+			          </div>
+			          <div class="form-group">
+			            <label for="recipient-name" class="control-label">博客链接:</label>
+			            <input type="text" class="form-control" id="textbloghref" name="textbloghref"  placeholder="请输入URL">
+			          </div>
+			          <div class="form-group">
+			            <label for="recipient-name" class="control-label">博客内容:</label>
+			            <input type="text" class="form-control" id="textBlogcontent" name="textBlogcontent"  placeholder="请输入博客内容">
+			          </div>			          			         
+			          <div class="form-group">
+			            <label for="recipient-name" class="control-label">博客摘要:</label>
+			            <input type="text" class="form-control" id="textBlogsummary" name="textBlogsummary"  placeholder="请输入博客内容">
+			          </div>
+			          <div class="form-group">
+			            <label for="recipient-name" class="control-label">备注:</label>
+			            <input type="text" class="form-control" id="textRemark" name="textRemark"  placeholder="请输入备注">
+			          </div>
+			          <input type="hidden" id="hiBlogsPKID" >
+			        </form>
+			      </div>
+			      <div class="modal-footer">
+			        <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+			        <button type="button" id="btnAddBlogs" class="btn btn-primary">保存</button>
+			      </div>
+			    </div>
+			  </div>
+			</div>
+			<#--/弹框-->
 	</body>
 </html>

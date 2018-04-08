@@ -64,7 +64,7 @@ public class BlogServiceImpl extends BaseMybatisDao<BlogMapper>  implements Blog
 			resultMap.put("resultMsg", "操作失败。");
 			LoggerUtils.fmtError(getClass(), e, "根据IDS删除blogs出现错误");
 		}
-		return null;
+		return resultMap;
 	}
 
 	/**
@@ -83,14 +83,24 @@ public class BlogServiceImpl extends BaseMybatisDao<BlogMapper>  implements Blog
 	public Blogs getOneByPkid(Long pkid) {
 		BlogsBo blogsBo=new BlogsBo();
 		blogsBo.setPkid(pkid);
-		Blogs blogs=blogMapper.getOneBlogByPkid(blogsBo);
+		Blogs blogs=blogMapper.getOneBlogsByPkid(blogsBo);
 		return blogs;
 	}
 
+	/**
+	 * 修改博客
+	 */
 	@Override
-	public Map<String, Object> modifyBlogs(Blogs blog) {
-		// TODO Auto-generated method stub
-		return null;
+	public Map<String, Object> modifyBlogs(Blogs blogs) {
+		Map<String,Object> result=new HashMap<String,Object>(); 
+		try {
+			blogMapper.modifyBlogs(blogs);
+			result.put("status", "200");
+		} catch (Exception e) {
+			result.put("status", 500);
+			result.put("message", e.getMessage());
+		}		
+		return result;
 	}
 
 }
